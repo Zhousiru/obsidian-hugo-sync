@@ -1,0 +1,22 @@
+{
+    "s3": {
+        "vault": {
+            "endpoint": "",
+            "region": "",
+            "accessKeyId": "",
+            "secretAccessKey": "",
+            "bucket": ""
+        },
+        "asset": {
+            "endpoint": "",
+            "region": "",
+            "accessKeyId": "",
+            "secretAccessKey": "",
+            "bucket": ""
+        }
+    },
+    "vaultPost": "",
+    "vaultAsset": "",
+    "sitePath": "",
+    "hugoCmd":""
+}
