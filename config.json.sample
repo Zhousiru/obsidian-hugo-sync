@@ -17,6 +17,7 @@
     },
     "vaultPost": "",
     "vaultAsset": "",
+    "assetUrl": "",
     "sitePath": "",
     "hugoCmd":""
 }

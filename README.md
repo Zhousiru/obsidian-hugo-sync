@@ -17,9 +17,9 @@
 
 ## Diff
 
-- 建立文件，记录对应关系：
-  仓库 Bucket 资源文件夹中原图片的 `ETag` <--> 资源 Bucket 中处理过的图片的 `filename`
-  仓库 Bucket 文章文件夹中原文章的 `ETag` <--> 站点目录下处理过的文章的 `filename`
+- 建立文件，记录对应关系：<br />
+  仓库 Bucket 资源文件夹中原图片的 `ETag` <--> 资源 Bucket 中处理过的图片的 `filename`<br />
+  仓库 Bucket 文章文件夹中原文章的 `ETag` <--> 站点目录下处理过的文章的 `filename`<br />
 - 当本次获取到的 `ETag` 多出：
   1. 处理此文件（文章 / 图片），记录处理后的 `filename`
   2. 新增此条对应关系
@@ -45,5 +45,6 @@
 | s3.asset.bucket              | 资源 Bucket 的 Bucket                 |
 | vaultPost  | 仓库 Bucket 中的文章文件夹<br />只有此文件夹下的文章会被同步 |
 | vaultAsset | 仓库 Bucket 中的资源文件夹<br />此文件夹下的图片会被转换为 WebP 格式<br />并同步到资源 Bucket |
+| assetUrl | 访问资源 Bucket 的 URL，用于替换文章中图片 `src` |
 | sitePath | Hugo 站点路径 |
 | hugoCmd | Hugo 构建命令 |

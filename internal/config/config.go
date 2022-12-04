@@ -25,6 +25,7 @@ type config struct {
 	} `json:"s3"`
 	VaultPost  string `json:"vaultPost"`
 	VaultAsset string `json:"vaultAsset"`
+	AssetUrl   string `json:"assetUrl"`
 	SitePath   string `json:"sitePath"`
 	HugoCmd    string `json:"hugoCmd"`
 }
