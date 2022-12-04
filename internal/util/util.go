@@ -23,3 +23,8 @@ func IsExist(path string) bool {
 func TrimExt(filename string) string {
 	return filename[:len(filename)-len(filepath.Ext(filename))]
 }
+
+// TrimPrefix trims prefix of specific string.
+func TrimPrefix(s, prefix string) string {
+	return s[len(prefix):]
+}
