@@ -7,7 +7,9 @@ import (
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/util"
 )
 
-func ReplaceImageUrl(post string, baseUrl string, vaultAsset string) string {
+// ConvertImageMark converts Markdown image mark to HTML image tag.
+// And modify its URL.
+func ConvertImageMark(post string, baseUrl string, vaultAsset string) string {
 	reImageMark := regexp.MustCompile(`!\[(.*?)\]\((.*?)\)`)
 
 	ret := reImageMark.ReplaceAllStringFunc(post, func(imageMark string) string {
