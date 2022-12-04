@@ -3,6 +3,7 @@ package util
 import (
 	"errors"
 	"os"
+	"path/filepath"
 )
 
 // IsExist checks existence of a path.
@@ -16,4 +17,9 @@ func IsExist(path string) bool {
 	}
 
 	return true
+}
+
+// TrimExt returns filename without ext.
+func TrimExt(filename string) string {
+	return filename[:len(filename)-len(filepath.Ext(filename))]
 }
