@@ -5,7 +5,7 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
-// Client is a s3 object storage client.
+// Client is a S3 object storage client.
 type Client struct {
 	client *minio.Client
 	bucket string
