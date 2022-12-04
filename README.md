@@ -1,6 +1,8 @@
 # obsidian-hugo-sync
 同步 S3-compatible 对象存储上的 Obsidian Vault 到 Hugo 站点
 
+🚧 UNDER CONSTRUCTION 🚧
+
 ## 流程
 
 1. 拉取仓库 Bucket 资源文件夹，Diff
@@ -48,3 +50,20 @@
 | assetUrl | 访问资源 Bucket 的 URL，用于替换文章中图片 `src` |
 | sitePath | Hugo 站点路径 |
 | hugoCmd | Hugo 构建命令 |
+
+## Obsidian 文章处理
+
+### Front Matter
+
+- 在 Obsidian 文章的 Front Matter 中使用 `title: {{auto}}`，会自动替换为 `title: <Obsidian 文章标题>`
+
+### Obsidian Markdown 转换
+
+Based on RegEx, not AST :D
+
+**不支持 WikiLinks**
+
+- 引入图片：`![](<资源文件夹>/<图片文件名>)` 或 `![](<图片文件名>)`<br />
+  指定大小：`![<Width>x<Height>](...)`<br />
+  指定替代文本：`![alt <替代文本>](...)`<br />
+  将会被转换为 HTML 标签
