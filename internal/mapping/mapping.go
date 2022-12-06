@@ -4,6 +4,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Zhousiru/obsidian-hugo-sync/internal/s3"
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/util"
 )
 
@@ -88,4 +89,15 @@ func (mp *Mapping) Save() error {
 	}
 
 	return os.WriteFile(mp.path, []byte(data), 0644)
+}
+
+// VaultToMapping dumps Obsidian vault post/asset object slice to post/asset mapping.
+func VaultToMapping(objSlice []*s3.Object, prefix string, mappingType string) *Mapping {
+	m := new(Mapping)
+	m.SetType(PostMapping)
+	for _, obj := range objSlice {
+		m.Add(obj.ETag, util.TrimPrefix(obj.Key, prefix))
+	}
+
+	return m
 }
