@@ -14,7 +14,7 @@ func ListVaultPost() ([]*s3.Object, error) {
 
 // ListVaultAsset returns a slice of S3 Obsidian vault asset objects.
 func ListVaultAsset() ([]*s3.Object, error) {
-	return listVault(config.X.VaultPost)
+	return listVault(config.X.VaultAsset)
 }
 
 func listVault(prefix string) ([]*s3.Object, error) {
