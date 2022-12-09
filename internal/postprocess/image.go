@@ -24,16 +24,27 @@ func ConvertImageMark(post string, baseUrl string, vaultAsset string) string {
 }
 
 func genImageHtmlTag(rawAlt string, rawUrl string, vaultAsset string, baseUrl string) string {
-	// acceptable `rawUrl`: `<Vault Asset>/xxx.jpg`, `xxx.jpg`
-	imageFilename := ""
+	src := ""
 
-	if strings.HasPrefix(rawUrl, vaultAsset+"/") {
-		imageFilename = util.TrimExt(rawUrl[len(vaultAsset+"/"):])
+	if strings.HasPrefix(rawUrl, "https://") || strings.HasPrefix(rawUrl, "http://") {
+		// remote `rawUrl`: `http(s)://...`
+		src = rawUrl
 	} else {
-		imageFilename = util.TrimExt(rawUrl)
+		// local `rawUrl`: `<Vault Asset>/xxx.jpg`, `xxx.jpg`
+		imageFilename := ""
+
+		if strings.HasPrefix(rawUrl, vaultAsset+"/") {
+			// `<Vault Asset>/xxx.jpg`
+			imageFilename = util.TrimExt(rawUrl[len(vaultAsset+"/"):])
+		} else {
+			// `xxx.jpg`
+			imageFilename = util.TrimExt(rawUrl)
+		}
+
+		src = baseUrl + imageFilename + ".webp"
 	}
 
-	imageHtmlTag := `<img src="` + baseUrl + imageFilename + `.webp"`
+	imageHtmlTag := `<img src="` + src + `"`
 
 	if rawAlt != "" {
 		// use `alt xxx` to specify HTML alt
@@ -44,7 +55,7 @@ func genImageHtmlTag(rawAlt string, rawUrl string, vaultAsset string, baseUrl st
 
 			imageHtmlTag = imageHtmlTag + ` alt="` + rawAlt[len(altPrefix):] + `"`
 		} else {
-			// not specific alt, add width and height
+			// no specific alt, add width and height
 			// acceptable: `100x200`, `100`
 
 			size := strings.Split(rawAlt, "x")
