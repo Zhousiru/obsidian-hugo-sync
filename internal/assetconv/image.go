@@ -3,7 +3,20 @@ package assetconv
 import (
 	"io"
 	"os/exec"
+	"strings"
 )
+
+// CanToWebP checks if a specified format can be converted to WebP.
+func CanToWebP(format string) bool {
+	// PNG, JPEG, and TIFF common exts
+	supported := []string{"png", "jpg", "jpeg", "tiff", "tif"}
+	for _, v := range supported {
+		if strings.ToLower(v) == format {
+			return true
+		}
+	}
+	return false
+}
 
 // ToWebP converts supported images to WebP format by calling `cwebp`.
 // Input format can be either PNG, JPEG, TIFF, WebP or raw Y'CbCr samples.
