@@ -1,9 +1,11 @@
 package postprocess
 
 import (
+	"path/filepath"
 	"regexp"
 	"strings"
 
+	"github.com/Zhousiru/obsidian-hugo-sync/internal/assetconv"
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/util"
 )
 
@@ -35,13 +37,17 @@ func genImageHtmlTag(rawAlt string, rawUrl string, vaultAsset string, baseUrl st
 
 		if strings.HasPrefix(rawUrl, vaultAsset+"/") {
 			// `<Vault Asset>/xxx.jpg`
-			imageFilename = util.TrimExt(rawUrl[len(vaultAsset+"/"):])
+			imageFilename = rawUrl[len(vaultAsset+"/"):]
 		} else {
 			// `xxx.jpg`
-			imageFilename = util.TrimExt(rawUrl)
+			imageFilename = rawUrl
 		}
 
-		src = baseUrl + imageFilename + ".webp"
+		if assetconv.CanToWebP(filepath.Ext(imageFilename)) {
+			src = baseUrl + util.TrimExt(imageFilename) + ".webp"
+		} else {
+			src = baseUrl + imageFilename
+		}
 	}
 
 	imageHtmlTag := `<img src="` + src + `"`
