@@ -69,3 +69,8 @@ func (c *Client) Get(objectKey string) ([]byte, error) {
 
 	return ret, nil
 }
+
+// Remove removes specified object.
+func (c *Client) Remove(objectKey string) error {
+	return c.client.RemoveObject(context.Background(), c.bucket, objectKey, minio.RemoveObjectOptions{})
+}
