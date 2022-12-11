@@ -33,7 +33,7 @@ func (mp *Mapping) SetType(t string) {
 // Load loads mapping data from file.
 // If file isn't exist, it will do nothing.
 func (mp *Mapping) Load() error {
-	if !util.IsExist("data/post_mapping") || !util.IsExist("data/asset_mapping") {
+	if !util.IsExist(mp.path) {
 		// keep `mp.m` empty
 		return nil
 	}
