@@ -19,13 +19,25 @@
 
 ## Mapping
 
-使用两个文件分别记录 S3 存储内容和生成 / 转换的文章 / 资源的文件名的关系
+使用两个文件分别记录摘要、文件名的关系
 
 格式为：
 
 ```
-md5(<Filename on S3> + <ETag>)|<Filename of Processed File>
+md5(<Filename on S3> + <ETag>)|<Filename of Raw File>|<Filename of Processed File>
 ```
+
+例如：
+
+```
+470a2f67b129a34e09bacf25d20e5a72|test-image.jpg|test-image.webp
+```
+
+```
+32832606886ee83d907a82e8e63b85a0|test-post.md|test-post.md
+```
+
+虽然目前对文章的处理不会改变文件名，但是为了保持一致性，还是两个文件名都写进去
 
 通过检测键的增删，生成或删除对应的文件，达到同步的目的
 
