@@ -1,4 +1,4 @@
-package post
+package vault
 
 import (
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/config"
