@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/assetconv"
@@ -62,6 +61,7 @@ func (mp *Mapping) Add(filename, eTag, v string) {
 }
 
 // Diff finds out which mapping is created or deleted, and call back.
+// `delCallback` will be called before `newCallback`.
 func (mp *Mapping) Diff(newMapping *Mapping, delCallback, newCallback func(hash, v string)) {
 	tmpNew := make(map[string]string)
 
@@ -109,7 +109,7 @@ func VaultToMapping(objSlice []*s3.Object, prefix, mappingType string) *Mapping 
 			filename = rawFilename
 		} else {
 			// when it's `AssetMapping`
-			if assetconv.CanToWebP(filepath.Ext(rawFilename)) {
+			if assetconv.CanToWebP(util.GetExt(rawFilename)) {
 				// can be converted to WebP
 				// then filename is `xxx.webp`
 				filename = util.TrimExt(rawFilename) + ".webp"

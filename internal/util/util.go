@@ -28,3 +28,8 @@ func TrimExt(filename string) string {
 func TrimPrefix(s, prefix string) string {
 	return s[len(prefix):]
 }
+
+// GetExt returns ext of specified filename without dot.
+func GetExt(filename string) string {
+	return filepath.Ext(filename)[1:]
+}

@@ -1,7 +1,6 @@
 package postprocess
 
 import (
-	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -43,7 +42,7 @@ func genImageHtmlTag(rawAlt string, rawUrl string, vaultAsset string, baseUrl st
 			imageFilename = rawUrl
 		}
 
-		if assetconv.CanToWebP(filepath.Ext(imageFilename)) {
+		if assetconv.CanToWebP(util.GetExt(imageFilename)) {
 			src = baseUrl + util.TrimExt(imageFilename) + ".webp"
 		} else {
 			src = baseUrl + imageFilename
