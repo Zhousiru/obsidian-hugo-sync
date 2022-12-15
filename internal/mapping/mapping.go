@@ -45,7 +45,7 @@ func (mp *Mapping) Load() error {
 			// skip invalid lines
 			continue
 		}
-		ent := new(entry)
+		ent := new(Entry)
 		ent.FromString(v)
 		mp.m = append(mp.m, ent)
 	}
@@ -56,11 +56,28 @@ func (mp *Mapping) Load() error {
 // Add adds a new mapping.
 // Add evaluates the hash by filename and eTag.
 func (mp *Mapping) Add(eTag, rawFilename, processedFilename string) {
-	ent := new(entry)
+	ent := new(Entry)
 	ent.Hash = genHash(rawFilename, eTag)
 	ent.RawFilename = rawFilename
 	ent.ProcessedFilename = processedFilename
 	mp.m = append(mp.m, ent)
+}
+
+// Append adds the specified mapping entry to `Mapping`.
+func (mp *Mapping) Append(ent *Entry) {
+	mp.m = append(mp.m, ent)
+}
+
+// Remove removes a mapping entry with specified hash.
+func (mp *Mapping) Remove(hash string) {
+	for index, ent := range mp.m {
+		if ent.Hash == hash {
+			mp.m[index] = mp.m[len(mp.m)-1]
+			mp.m = mp.m[:len(mp.m)-1]
+
+			return
+		}
+	}
 }
 
 // Diff finds out which mapping is added or deleted.

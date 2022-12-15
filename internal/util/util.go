@@ -2,6 +2,7 @@ package util
 
 import (
 	"errors"
+	"mime"
 	"os"
 	"path/filepath"
 )
@@ -32,4 +33,9 @@ func TrimPrefix(s, prefix string) string {
 // GetExt returns ext of specified filename without dot.
 func GetExt(filename string) string {
 	return filepath.Ext(filename)[1:]
+}
+
+// GetContentType returns the content type of specified extension (without dot).
+func GetContentType(ext string) string {
+	return mime.TypeByExtension("." + ext)
 }

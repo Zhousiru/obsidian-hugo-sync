@@ -20,10 +20,10 @@ func Fatal(format string, v ...any) {
 	logErr.Fatalf(format, v...)
 }
 
-func NewFile(filename string, hash string) {
-	Info("✨ New: %s[%s]", filename, hash[:7])
+func NewFile(filename, hash string) {
+	Info("✨ Add: %s[%s]", filename, hash[:7])
 }
 
-func DelFile(filename string, hash string) {
+func DelFile(filename, hash string) {
 	Info("🧹 Del: %s[%s]", filename, hash[:7])
 }

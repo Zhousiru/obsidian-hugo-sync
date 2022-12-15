@@ -2,13 +2,13 @@ package mapping
 
 import "strings"
 
-type entry struct {
+type Entry struct {
 	Hash              string
 	RawFilename       string
 	ProcessedFilename string
 }
 
-func (e *entry) FromString(str string) {
+func (e *Entry) FromString(str string) {
 	split := strings.Split(str, "|")
 	if len(split) == 3 {
 		e.Hash = split[0]
@@ -17,11 +17,11 @@ func (e *entry) FromString(str string) {
 	}
 }
 
-func (e *entry) ToString() string {
+func (e *Entry) ToString() string {
 	return e.Hash + "|" + e.RawFilename + "|" + e.ProcessedFilename
 }
 
-type entrySlice []*entry
+type entrySlice []*Entry
 
 func (e entrySlice) haveHash(hash string) bool {
 	for _, ent := range e {
