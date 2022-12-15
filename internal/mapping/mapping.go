@@ -58,8 +58,8 @@ func (mp *Mapping) Load() error {
 func (mp *Mapping) Add(eTag, rawFilename, processedFilename string) {
 	ent := new(entry)
 	ent.Hash = genHash(rawFilename, eTag)
-	ent.rawFilename = rawFilename
-	ent.processedFilename = processedFilename
+	ent.RawFilename = rawFilename
+	ent.ProcessedFilename = processedFilename
 	mp.m = append(mp.m, ent)
 }
 
