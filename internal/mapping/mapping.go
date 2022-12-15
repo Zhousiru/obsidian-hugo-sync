@@ -1,8 +1,6 @@
 package mapping
 
 import (
-	"crypto/md5"
-	"encoding/hex"
 	"os"
 	"strings"
 
@@ -18,14 +16,13 @@ const (
 
 // Mapping saves the relation between hash and value.
 type Mapping struct {
-	m    map[string]string
+	m    entrySlice
 	path string
 }
 
 // SetType sets the type of mapping.
 // SetType must be called to init.
 func (mp *Mapping) SetType(t string) {
-	mp.m = make(map[string]string)
 	mp.path = t
 }
 
@@ -44,10 +41,13 @@ func (mp *Mapping) Load() error {
 
 	for _, v := range strings.Split(string(data), "\n") {
 		splited := strings.Split(v, "|")
-		if len(splited) != 2 {
+		if len(splited) != 3 {
+			// skip invalid lines
 			continue
 		}
-		mp.m[splited[0]] = splited[1]
+		ent := new(entry)
+		ent.FromString(v)
+		mp.m = append(mp.m, ent)
 	}
 
 	return nil
@@ -55,39 +55,42 @@ func (mp *Mapping) Load() error {
 
 // Add adds a new mapping.
 // Add evaluates the hash by filename and eTag.
-func (mp *Mapping) Add(filename, eTag, v string) {
-	hash := md5.Sum([]byte(filename + eTag))
-	mp.m[hex.EncodeToString(hash[:])] = v
+func (mp *Mapping) Add(eTag, rawFilename, processedFilename string) {
+	ent := new(entry)
+	ent.Hash = genHash(rawFilename, eTag)
+	ent.rawFilename = rawFilename
+	ent.processedFilename = processedFilename
+	mp.m = append(mp.m, ent)
 }
 
-// Diff finds out which mapping is created or deleted, and call back.
-// `delCallback` will be called before `newCallback`.
-func (mp *Mapping) Diff(newMapping *Mapping, delCallback, newCallback func(hash, v string)) {
-	tmpNew := make(map[string]string)
-
-	for k, v := range newMapping.m {
-		tmpNew[k] = v
-	}
-
-	for k, v := range mp.m {
-		_, ok := tmpNew[k]
-		if !ok {
-			delCallback(k, v)
+// Diff finds out which mapping is added or deleted.
+func (mp *Mapping) Diff(newMapping *Mapping) (add entrySlice, del entrySlice) {
+	common := entrySlice{}
+	for _, ent := range newMapping.m {
+		if mp.m.haveHash(ent.Hash) {
+			// common ent
+			common = append(common, ent)
 		} else {
-			delete(tmpNew, k)
+			// new ent
+			add = append(add, ent)
 		}
 	}
 
-	for k, v := range tmpNew {
-		newCallback(k, v)
+	for _, ent := range mp.m {
+		if !common.haveHash(ent.Hash) {
+			// del ent
+			del = append(del, ent)
+		}
 	}
+
+	return
 }
 
 // Save saves mapping to file
 func (mp *Mapping) Save() error {
 	data := ""
-	for k, v := range mp.m {
-		data += k + "|" + v + "\n"
+	for _, ent := range mp.m {
+		data += ent.ToString() + "\n"
 	}
 
 	if !util.IsExist("data") {
@@ -119,7 +122,7 @@ func VaultToMapping(objSlice []*s3.Object, prefix, mappingType string) *Mapping 
 				filename = rawFilename
 			}
 		}
-		m.Add(rawFilename, obj.ETag, filename)
+		m.Add(obj.ETag, rawFilename, filename)
 	}
 
 	return m

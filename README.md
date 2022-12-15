@@ -24,7 +24,7 @@
 格式为：
 
 ```
-md5(<Filename on S3> + <ETag>)|<Filename of Raw File>|<Filename of Processed File>
+md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Processed File>
 ```
 
 例如：
