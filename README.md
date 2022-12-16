@@ -85,6 +85,6 @@ Based on RegEx, not AST :D
 
 ### 图片格式转换
 
-`vaultAsset` 下的所有文件都会被上传到 Asset Bucket，其中拓展名为 `png`, `jpg`, `jpeg`, `tiff`, `tif` 的图片会被转换为 WebP 格式
+`vaultAsset` 下的所有文件都会被上传到 Asset Bucket，其中拓展名为 `png`, `jpg`, `jpeg`, `tiff`, `tif`, `gif` 的图片会被转换为 WebP 格式
 
 同时，引入这些图片时的 URL 会被修改

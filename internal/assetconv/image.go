@@ -1,6 +1,7 @@
 package assetconv
 
 import (
+	"bytes"
 	"io"
 	"os/exec"
 	"strings"
@@ -8,8 +9,8 @@ import (
 
 // CanToWebP checks if a specified format can be converted to WebP.
 func CanToWebP(format string) bool {
-	// PNG, JPEG, and TIFF common exts
-	supported := []string{"png", "jpg", "jpeg", "tiff", "tif"}
+	// GIF, PNG, JPEG, and TIFF common exts
+	supported := []string{"gif", "png", "jpg", "jpeg", "tiff", "tif"}
 	for _, v := range supported {
 		if strings.ToLower(v) == format {
 			return true
@@ -19,10 +20,17 @@ func CanToWebP(format string) bool {
 }
 
 // ToWebP converts supported images to WebP format by calling `cwebp`.
-// Input format can be either PNG, JPEG, TIFF, WebP or raw Y'CbCr samples.
+// Input format can be either GIF, PNG, JPEG, TIFF, WebP or raw Y'CbCr samples.
 // https://developers.google.com/speed/webp/docs/cwebp
+// https://developers.google.com/speed/webp/docs/gif2webp
 func ToWebP(image []byte) ([]byte, error) {
-	cmd := exec.Command("cwebp", "-quiet", "-o", "-", "--", "-")
+
+	var cmd *exec.Cmd
+	if bytes.HasPrefix(image, []byte("GIF87a")) || bytes.HasPrefix(image, []byte("GIF89a")) {
+		cmd = exec.Command("gif2webp", "-quiet", "-o", "-", "--", "-")
+	} else {
+		cmd = exec.Command("cwebp", "-quiet", "-o", "-", "--", "-")
+	}
 
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
