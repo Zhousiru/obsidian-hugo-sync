@@ -10,7 +10,7 @@ import (
 
 // ConvertImageMark converts Markdown image mark to HTML image tag.
 // And modify its URL.
-func ConvertImageMark(post string, baseUrl string, vaultAsset string) string {
+func ConvertImageMark(post, baseUrl, vaultAsset string) string {
 	reImageMark := regexp.MustCompile(`!\[(.*?)\]\((.*?)\)`)
 
 	ret := reImageMark.ReplaceAllStringFunc(post, func(imageMark string) string {
@@ -24,7 +24,7 @@ func ConvertImageMark(post string, baseUrl string, vaultAsset string) string {
 	return ret
 }
 
-func genImageHtmlTag(rawAlt string, rawUrl string, vaultAsset string, baseUrl string) string {
+func genImageHtmlTag(rawAlt, rawUrl, vaultAsset, baseUrl string) string {
 	src := ""
 
 	if strings.HasPrefix(rawUrl, "https://") || strings.HasPrefix(rawUrl, "http://") {
