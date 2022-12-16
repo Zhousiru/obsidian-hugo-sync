@@ -60,7 +60,7 @@ md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Process
 | vaultPost  | 仓库 Bucket 中的文章文件夹<br />只有此文件夹下的文章会被同步 |
 | vaultAsset | 仓库 Bucket 中的资源文件夹<br />此文件夹下的图片会被转换为 WebP 格式<br />并同步到资源 Bucket |
 | assetUrl | 访问资源 Bucket 的 URL，用于替换文章中图片 `src` |
-| sitePath | Hugo 站点路径 |
+| hugoPostPath | Hugo 存放文章的路径 |
 | hugoCmd | Hugo 构建命令 |
 
 ## Obsidian 文章处理
@@ -78,8 +78,10 @@ Based on RegEx, not AST :D
 - 引入图片：`![](<资源文件夹>/<图片文件名>)` 或 `![](<图片文件名>)`<br />
   指定大小：`![<Width>x<Height>](...)`<br />
   指定替代文本：`![alt <替代文本>](...)`<br />
-  使用网络图片：图片 URL 以 `http(s)://` 开头即可
-  将会被转换为 HTML 标签
+  使用网络图片：图片 URL 以 `http(s)://` 开头即可<br />
+  注意：<br />
+  - 将会被转换为 HTML 标签，所以需要 Hugo 开启 HTML 支持<br />
+  - 使用 `![](<图片文件名>)` 引入图片，实际上等价于 `![](<资源文件夹>/<图片文件名>)`，可能会导致与 Obsidian 表现不一致（因为 Obsidian 会从整个 Vault 中查找图片）
 
 ### 图片格式转换
 
