@@ -23,11 +23,11 @@ type config struct {
 			Bucket          string `json:"bucket"`
 		} `json:"asset"`
 	} `json:"s3"`
-	VaultPost  string `json:"vaultPost"`
-	VaultAsset string `json:"vaultAsset"`
-	AssetUrl   string `json:"assetUrl"`
-	SitePath   string `json:"sitePath"`
-	HugoCmd    string `json:"hugoCmd"`
+	VaultPost    string `json:"vaultPost"`
+	VaultAsset   string `json:"vaultAsset"`
+	AssetUrl     string `json:"assetUrl"`
+	HugoPostPath string `json:"hugoPostPath"`
+	HugoCmd      string `json:"hugoCmd"`
 }
 
 // X saves unmarshaled config data.
