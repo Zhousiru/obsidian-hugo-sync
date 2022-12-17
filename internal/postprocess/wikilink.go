@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func convertWikilinkMark(post, vaultPost, vaultAsset, baseUrl string) string {
+func convertWikilink(post, vaultPost, vaultAsset, baseUrl string) string {
 	reWikilinkMark := regexp.MustCompile(`(!?)\[\[(.*?)\]\]`)
 
 	ret := reWikilinkMark.ReplaceAllStringFunc(post, func(wikilinkMark string) string {
