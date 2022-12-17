@@ -76,7 +76,7 @@ md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Process
 *Based on RegEx, not AST :D*
 
 #### 图片
-- 使用 CommonMark：`![...](<资源文件夹>/<图片文件名>)` 或 `![...](<图片文件名>)`<br />
+- 使用 CommonMark：`![...](<URL>)`<br />
   指定大小：`![<Size>](...)`<br />
   指定替代文本：`![alt <Alt>](...)`<br />
   同时指定大小和替代文本：`![alt <Alt>|<Size>](...)`
@@ -87,7 +87,8 @@ md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Process
   同时指定大小和替代文本：`![[<URL>|alt <Alt>|<Size>]]`
 
 - 说明
-  - `<Size>` 可为 `<资源文件夹>/<图片文件名>` 或 `<图片文件名>`
+  - `<URL>` 可为 `<资源文件夹>/<图片文件名>` 或 `<图片文件名>`
+  - `<Size>` 可为 `<Width>x<Height>` 或 `<Width>`
   - 使用网络图片：图片 URL 以 `http(s)://` 开头即可
 
 #### 内部文章链接
