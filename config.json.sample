@@ -21,6 +21,6 @@
     "hugo": {
         "sitePath": "",
         "postPath": "",
-        "cmd": ""
+        "cmd": [""]
     }
 }

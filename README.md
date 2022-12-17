@@ -60,8 +60,9 @@ md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Process
 | vaultPost  | 仓库 Bucket 中的文章文件夹<br />只有此文件夹下的文章会被同步 |
 | vaultAsset | 仓库 Bucket 中的资源文件夹<br />此文件夹下的图片会被转换为 WebP 格式<br />并同步到资源 Bucket |
 | assetUrl | 访问资源 Bucket 的 URL，用于替换文章中图片 `src` |
-| hugoPostPath | Hugo 存放文章的路径 |
-| hugoCmd | Hugo 构建命令 |
+| hugo.sitePath | Hugo 站点路径 |
+| hugo.postPath | Hugo 存放文章的路径 |
+| hugo.cmd | Hugo 构建命令 |
 
 ## Obsidian 文章处理
 

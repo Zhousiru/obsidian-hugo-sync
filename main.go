@@ -1,7 +1,9 @@
 package main
 
 import (
+	"errors"
 	"os"
+	"os/exec"
 	"sync"
 
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/assetconv"
@@ -204,4 +206,18 @@ func main() {
 	}
 
 	// TODO: hugo build
+	cmd := exec.Command(config.X.Hugo.Cmd[0], config.X.Hugo.Cmd[1:]...)
+	cmd.Dir = config.X.Hugo.SitePath
+
+	hugoOutput, err := cmd.CombinedOutput()
+	if err != nil {
+		var exitError *exec.ExitError
+		if errors.As(err, &exitError) {
+			logger.Err("Hugo failed to build the site:\n%s", string(hugoOutput))
+			os.Exit(1)
+		} else {
+			logger.Fatal("Failed to run Hugo cmd: %s", err)
+		}
+	}
+	logger.Info("Hugo built the site successfully")
 }
