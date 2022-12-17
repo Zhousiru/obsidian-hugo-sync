@@ -14,9 +14,9 @@ const (
 
 func urlToFilename(url, prefix string, urlType int) string {
 	var filename string
-	if strings.HasPrefix(url, prefix+"/") {
-		// `<Prefix>/xxx.xx`, `<Prefix>/xxx`
-		filename = url[len(prefix+"/"):]
+	if strings.HasPrefix(url, prefix) {
+		// `<Prefix>xxx.xx`, `<Prefix>xxx`
+		filename = url[len(prefix):]
 	} else {
 		// `xxx.xx`, `xxx`
 		filename = url
