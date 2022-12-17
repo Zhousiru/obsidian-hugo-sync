@@ -11,23 +11,26 @@ type config struct {
 		Vault struct {
 			Endpoint        string `json:"endpoint"`
 			Region          string `json:"region"`
-			AccessKeyID     string `json:"accessKeyId"`
+			AccessKeyId     string `json:"accessKeyId"`
 			SecretAccessKey string `json:"secretAccessKey"`
 			Bucket          string `json:"bucket"`
 		} `json:"vault"`
 		Asset struct {
 			Endpoint        string `json:"endpoint"`
 			Region          string `json:"region"`
-			AccessKeyID     string `json:"accessKeyId"`
+			AccessKeyId     string `json:"accessKeyId"`
 			SecretAccessKey string `json:"secretAccessKey"`
 			Bucket          string `json:"bucket"`
 		} `json:"asset"`
 	} `json:"s3"`
-	VaultPost    string `json:"vaultPost"`
-	VaultAsset   string `json:"vaultAsset"`
-	AssetUrl     string `json:"assetUrl"`
-	HugoPostPath string `json:"hugoPostPath"`
-	HugoCmd      string `json:"hugoCmd"`
+	VaultPost  string `json:"vaultPost"`
+	VaultAsset string `json:"vaultAsset"`
+	AssetUrl   string `json:"assetUrl"`
+	Hugo       struct {
+		SitePath string `json:"sitePath"`
+		PostPath string `json:"postPath"`
+		Cmd      string `json:"cmd"`
+	} `json:"hugo"`
 }
 
 // X saves unmarshaled config data.

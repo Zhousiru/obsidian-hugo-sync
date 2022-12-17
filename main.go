@@ -18,7 +18,7 @@ func main() {
 	err := vaultClient.Setup(
 		config.X.S3.Vault.Endpoint,
 		config.X.S3.Vault.Region,
-		config.X.S3.Vault.AccessKeyID,
+		config.X.S3.Vault.AccessKeyId,
 		config.X.S3.Vault.SecretAccessKey,
 		config.X.S3.Vault.Bucket,
 	)
@@ -30,7 +30,7 @@ func main() {
 	err = assetClient.Setup(
 		config.X.S3.Asset.Endpoint,
 		config.X.S3.Asset.Region,
-		config.X.S3.Asset.AccessKeyID,
+		config.X.S3.Asset.AccessKeyId,
 		config.X.S3.Asset.SecretAccessKey,
 		config.X.S3.Asset.Bucket,
 	)
@@ -150,7 +150,7 @@ func main() {
 
 			defer wg.Done()
 
-			err := os.Remove(config.X.HugoPostPath + ent.ProcessedFilename)
+			err := os.Remove(config.X.Hugo.PostPath + ent.ProcessedFilename)
 			if err != nil {
 				logger.Err("Failed to remove post %s: %s", ent.RawFilename, err)
 				return
@@ -185,7 +185,7 @@ func main() {
 				config.X.VaultAsset,
 			)
 
-			err = os.WriteFile(config.X.HugoPostPath+ent.ProcessedFilename, []byte(postStr), 0644)
+			err = os.WriteFile(config.X.Hugo.PostPath+ent.ProcessedFilename, []byte(postStr), 0644)
 			if err != nil {
 				logger.Err("Failed to add post %s: %s", ent.RawFilename, err)
 				return

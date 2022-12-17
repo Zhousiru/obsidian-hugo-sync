@@ -18,6 +18,9 @@
     "vaultPost": "",
     "vaultAsset": "",
     "assetUrl": "",
-    "hugoPostPath": "",
-    "hugoCmd":""
+    "hugo": {
+        "sitePath": "",
+        "postPath": "",
+        "cmd": ""
+    }
 }
