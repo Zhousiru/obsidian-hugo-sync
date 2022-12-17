@@ -75,6 +75,8 @@ md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Process
 
 *Based on RegEx, not AST :D*
 
+*少数情况下会误伤*
+
 #### 图片
 - 使用 CommonMark：`![...](<URL>)`<br />
   指定大小：`![<Size>](...)`<br />
@@ -93,12 +95,24 @@ md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Process
 
 #### 内部文章链接
 
+- 使用 CommonMark：`![](<URL>)`<br />
+  指定显示文本：`![<Display Text>](<URL>)`
+
 - 使用 Wikilink：`[[<URL>]]`<br />
   指定显示文本：`![[<URL>|<Display Text>]]`
 
 - 说明
   - `<URL>` 可为 `<文章文件夹>/<文章标题>` 或 `<文章标题>`
   - 链接会在当前页面打开
+
+#### 外部链接
+
+- 使用 CommonMark：`![](<URL>)`<br />
+  指定显示文本：`![<Display Text>](<URL>)`
+
+- 说明
+  - `<URL>` 需要以 `http(s)://` 开头
+  - 链接会在新页面打开
 
 ### 图片格式转换
 
