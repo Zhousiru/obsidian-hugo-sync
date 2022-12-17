@@ -7,8 +7,8 @@ import (
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/util"
 )
 
-// ModifyTitle replaces `title: {auto}` to `title: <Post Filename Without Ext>`
-func ModifyTitle(filename string, post string) string {
+// modifyTitle replaces `title: {auto}` to `title: <Post Filename Without Ext>`
+func modifyTitle(filename string, post string) string {
 	title := util.TrimExt(filename)
 
 	reFrontMatter := regexp.MustCompile(`^---\n[\S\s]*?\n---`)

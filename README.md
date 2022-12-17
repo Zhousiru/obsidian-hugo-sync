@@ -69,19 +69,35 @@ md5(<Filename of Raw File> + <ETag>)|<Filename of Raw File>|<Filename of Process
 
 - 在 Obsidian 文章的 Front Matter 中使用 `title: {{auto}}`，会自动替换为 `title: <Obsidian 文章标题>`
 
-### Obsidian Markdown 转换
+### Obsidian Markdown 语法拓展
 
-Based on RegEx, not AST :D
+**需要开启 Hugo HTML 支持**
 
-**不支持 WikiLinks**
+*Based on RegEx, not AST :D*
 
-- 引入图片：`![](<资源文件夹>/<图片文件名>)` 或 `![](<图片文件名>)`<br />
-  指定大小：`![<Width>x<Height>](...)`<br />
-  指定替代文本：`![alt <替代文本>](...)`<br />
-  使用网络图片：图片 URL 以 `http(s)://` 开头即可<br />
-  注意：<br />
-  - 将会被转换为 HTML 标签，所以需要 Hugo 开启 HTML 支持<br />
-  - 使用 `![](<图片文件名>)` 引入图片，实际上等价于 `![](<资源文件夹>/<图片文件名>)`，可能会导致与 Obsidian 表现不一致（因为 Obsidian 会从整个 Vault 中查找图片）
+#### 图片
+- 使用 CommonMark：`![...](<资源文件夹>/<图片文件名>)` 或 `![...](<图片文件名>)`<br />
+  指定大小：`![<Size>](...)`<br />
+  指定替代文本：`![alt <Alt>](...)`<br />
+  同时指定大小和替代文本：`![alt <Alt>|<Size>](...)`
+
+- 使用 Wikilink：`![[<URL>]]`<br />
+  指定大小：`![[<URL>|<Size>]]`<br />
+  指定替代文本：`![[<URL>|alt <Alt>]]`<br />
+  同时指定大小和替代文本：`![[<URL>|alt <Alt>|<Size>]]`
+
+- 说明
+  - `<Size>` 可为 `<资源文件夹>/<图片文件名>` 或 `<图片文件名>`
+  - 使用网络图片：图片 URL 以 `http(s)://` 开头即可
+
+#### 内部文章链接
+
+- 使用 Wikilink：`[[<URL>]]`<br />
+  指定显示文本：`![[<URL>|<Display Text>]]`
+
+- 说明
+  - `<URL>` 可为 `<文章文件夹>/<文章标题>` 或 `<文章标题>`
+  - 链接会在当前页面打开
 
 ### 图片格式转换
 

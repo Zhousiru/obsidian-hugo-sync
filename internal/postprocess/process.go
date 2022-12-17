@@ -1,8 +1,11 @@
 package postprocess
 
-func Process(post, filename, baseUrl, vaultAsset string) string {
-	post = ModifyTitle(filename, post)
-	post = ConvertImageMark(post, baseUrl, vaultAsset)
+const errStr = "[OBSIDIAN_HUGO_SYNC_ERROR]"
+
+func Process(post, filename, baseUrl, vaultPost, vaultAsset string) string {
+	post = modifyTitle(filename, post)
+	post = convertCommonMarkImage(post, baseUrl, vaultAsset)
+	post = convertWikilinkMark(post, vaultPost, vaultAsset, baseUrl)
 
 	return post
 }

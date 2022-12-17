@@ -181,6 +181,7 @@ func main() {
 				string(post),
 				ent.RawFilename,
 				config.X.AssetUrl,
+				config.X.VaultPost,
 				config.X.VaultAsset,
 			)
 
