@@ -58,9 +58,20 @@ func main() {
 
 	latestAsset := mapping.VaultToMapping(assetObjSlice, config.X.VaultAsset, mapping.AssetMapping)
 
-	logger.Info("Update assets bucket")
+	logger.Info("Sync assets bucket")
+
+	var count struct {
+		AssetAdd int
+		AssetDel int
+		PostAdd  int
+		PostDel  int
+	}
 
 	assetAdd, assetDel := presentAsset.Diff(latestAsset)
+
+	count.AssetAdd = len(assetAdd)
+	count.AssetDel = len(assetDel)
+
 	var wg sync.WaitGroup
 
 	for _, ent := range assetDel {
@@ -140,9 +151,12 @@ func main() {
 
 	latestPost := mapping.VaultToMapping(postObjSlice, config.X.VaultPost, mapping.PostMapping)
 
-	logger.Info("Update hugo posts")
+	logger.Info("Sync hugo posts")
 
 	postAdd, postDel := presentPost.Diff(latestPost)
+
+	count.PostAdd = len(postAdd)
+	count.PostDel = len(postDel)
 
 	for _, ent := range postDel {
 		logger.DelFile(ent.RawFilename, ent.Hash)
@@ -205,19 +219,21 @@ func main() {
 		logger.Fatal("Failed to save post mapping: %s", err)
 	}
 
-	// TODO: hugo build
-	cmd := exec.Command(config.X.Hugo.Cmd[0], config.X.Hugo.Cmd[1:]...)
-	cmd.Dir = config.X.Hugo.SitePath
+	if count.PostAdd+count.PostDel != 0 {
+		cmd := exec.Command(config.X.Hugo.Cmd[0], config.X.Hugo.Cmd[1:]...)
+		cmd.Dir = config.X.Hugo.SitePath
 
-	hugoOutput, err := cmd.CombinedOutput()
-	if err != nil {
-		var exitError *exec.ExitError
-		if errors.As(err, &exitError) {
-			logger.Err("Hugo failed to build the site:\n%s", string(hugoOutput))
-			os.Exit(1)
-		} else {
-			logger.Fatal("Failed to run Hugo cmd: %s", err)
+		hugoOutput, err := cmd.CombinedOutput()
+		if err != nil {
+			var exitError *exec.ExitError
+			if errors.As(err, &exitError) {
+				logger.Fatal("Hugo failed to build the site:\n%s", string(hugoOutput))
+			} else {
+				logger.Fatal("Failed to run Hugo cmd: %s", err)
+			}
 		}
+		logger.Info("Hugo built the site successfully")
 	}
-	logger.Info("Hugo built the site successfully")
+
+	logger.Info("Everything is up-to-date.")
 }
