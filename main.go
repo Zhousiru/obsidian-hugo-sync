@@ -199,6 +199,7 @@ func main() {
 				config.X.AssetUrl,
 				config.X.VaultPost,
 				config.X.VaultAsset,
+				config.X.AssetUrl,
 			)
 
 			err = os.WriteFile(config.X.Hugo.PostPath+ent.ProcessedFilename, []byte(postStr), 0644)
@@ -219,7 +220,7 @@ func main() {
 		logger.Fatal("Failed to save post mapping: %s", err)
 	}
 
-	if count.PostAdd+count.PostDel != 0 {
+	if (len(config.X.Hugo.Cmd) != 0) && count.PostAdd+count.PostDel != 0 {
 		cmd := exec.Command(config.X.Hugo.Cmd[0], config.X.Hugo.Cmd[1:]...)
 		cmd.Dir = config.X.Hugo.SitePath
 
