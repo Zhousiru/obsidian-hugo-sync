@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"sync"
 
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/assetconv"
@@ -166,10 +167,14 @@ func main() {
 
 			defer wg.Done()
 
-			err := os.Remove(config.X.Hugo.PostPath + ent.ProcessedFilename)
+			err := os.Remove(filepath.Join(config.X.Hugo.PostPath, ent.ProcessedFilename))
 			if err != nil {
-				logger.Err("Failed to remove post %s: %s", ent.RawFilename, err)
-				return
+				if errors.Is(err, os.ErrNotExist) {
+					logger.Warn("%s doesn't exist. Remove from post mapping", ent.RawFilename)
+				} else {
+					logger.Err("Failed to remove post %s: %s", ent.RawFilename, err)
+					return
+				}
 			}
 
 			presentPost.Remove(ent.Hash)
@@ -202,7 +207,7 @@ func main() {
 				config.X.AssetUrl,
 			)
 
-			err = os.WriteFile(config.X.Hugo.PostPath+ent.ProcessedFilename, []byte(postStr), 0644)
+			err = os.WriteFile(filepath.Join(config.X.Hugo.PostPath, ent.ProcessedFilename), []byte(postStr), 0644)
 			if err != nil {
 				logger.Err("Failed to add post %s: %s", ent.RawFilename, err)
 				return
