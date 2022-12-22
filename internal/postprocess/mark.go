@@ -23,7 +23,7 @@ func convertImageMark(post, baseUrl, vaultAsset string) string {
 
 // convertLinkMark converts Markdown link mark to HTML link tag.
 func convertLinkMark(post, baseUrl, vaultPost string) string {
-	reLinkMark := regexp.MustCompile(`(.?)\[(.*?)\]\((.*?)\)`)
+	reLinkMark := regexp.MustCompile(`(!?)\[(.*?)\]\((.*?)\)`)
 
 	ret := reLinkMark.ReplaceAllStringFunc(post, func(linkMark string) string {
 		submatch := reLinkMark.FindStringSubmatch(linkMark)
