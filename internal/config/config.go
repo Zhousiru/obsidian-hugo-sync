@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"path/filepath"
+
+	"github.com/Zhousiru/obsidian-hugo-sync/internal/util"
 )
 
 type config struct {
@@ -39,12 +40,7 @@ type config struct {
 var X = new(config)
 
 func init() {
-	execPath, err := os.Executable()
-	if err != nil {
-		panic(err)
-	}
-
-	data, err := os.ReadFile(filepath.Join(filepath.Dir(execPath), "config.json"))
+	data, err := os.ReadFile(util.GetExecPath("config.json"))
 	if err != nil {
 		panic(err)
 	}

@@ -44,3 +44,13 @@ func GetExt(filename string) string {
 func GetContentType(ext string) string {
 	return mime.TypeByExtension("." + ext)
 }
+
+// GetExecPath returns abspath of specified relpath (to the executable).
+func GetExecPath(path string) string {
+	execPath, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+
+	return filepath.Join(filepath.Dir(execPath), path)
+}

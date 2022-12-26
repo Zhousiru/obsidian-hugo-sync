@@ -9,9 +9,10 @@ import (
 	"github.com/Zhousiru/obsidian-hugo-sync/internal/util"
 )
 
-const (
-	PostMapping  = "data/post_mapping"
-	AssetMapping = "data/asset_mapping"
+var (
+	PostMapping  = util.GetExecPath("data/post_mapping")
+	AssetMapping = util.GetExecPath("data/asset_mapping")
+	dataDir      = util.GetExecPath("data")
 )
 
 // Mapping saves the relation between hash and value.
@@ -110,8 +111,8 @@ func (mp *Mapping) Save() error {
 		data += ent.ToString() + "\n"
 	}
 
-	if !util.IsExist("data") {
-		os.Mkdir("data", 0664)
+	if !util.IsExist(dataDir) {
+		os.Mkdir(dataDir, 0664)
 	}
 
 	return os.WriteFile(mp.path, []byte(data), 0664)
