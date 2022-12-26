@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 type config struct {
@@ -38,7 +39,12 @@ type config struct {
 var X = new(config)
 
 func init() {
-	data, err := os.ReadFile("config.json")
+	execPath, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+
+	data, err := os.ReadFile(filepath.Join(filepath.Dir(execPath), "config.json"))
 	if err != nil {
 		panic(err)
 	}
