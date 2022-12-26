@@ -45,9 +45,17 @@ func (c *Client) List(prefix string) ([]*Object, error) {
 }
 
 // Put uploads specified bytes object to bucket.
-func (c *Client) Put(objectKey string, object []byte, contentType string) error {
+func (c *Client) Put(objectKey string, object []byte, contentType string, cacheControl string) error {
 	reader := bytes.NewReader(object)
-	_, err := c.client.PutObject(context.Background(), c.bucket, objectKey, reader, int64(len(object)), minio.PutObjectOptions{ContentType: contentType})
+	_, err := c.client.PutObject(
+		context.Background(),
+		c.bucket, objectKey,
+		reader, int64(len(object)),
+		minio.PutObjectOptions{
+			ContentType:  contentType,
+			CacheControl: cacheControl,
+		},
+	)
 	if err != nil {
 		return err
 	}

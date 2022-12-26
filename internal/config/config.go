@@ -23,10 +23,11 @@ type config struct {
 			Bucket          string `json:"bucket"`
 		} `json:"asset"`
 	} `json:"s3"`
-	VaultPost  string `json:"vaultPost"`
-	VaultAsset string `json:"vaultAsset"`
-	AssetUrl   string `json:"assetUrl"`
-	Hugo       struct {
+	VaultPost         string `json:"vaultPost"`
+	VaultAsset        string `json:"vaultAsset"`
+	AssetCacheControl string `json:"assetCacheControl"`
+	AssetUrl          string `json:"assetUrl"`
+	Hugo              struct {
 		SitePath string   `json:"sitePath"`
 		PostPath string   `json:"postPath"`
 		Cmd      []string `json:"cmd"`

@@ -62,6 +62,7 @@
 | vaultPost  | 仓库 Bucket 中的文章文件夹（以 `/` 结尾）<br />只有此文件夹下的文章会被同步和处理 |
 | vaultAsset | 仓库 Bucket 中的资源文件夹（以 `/` 结尾）<br />此文件夹下的文件会被同步到资源 Bucket<br />受支持的图片将会转换为 WebP 格式 |
 | assetUrl | 访问资源 Bucket 的 URL（以 `/` 结尾），用于替换文章中图片链接 |
+| assetCacheControl | 资源 Bucket 中图片等资源的缓存策略<br />如 `public, max-age=31536000` |
 | hugo.sitePath | Hugo 站点路径 |
 | hugo.postPath | Hugo 存放文章的路径 |
 | hugo.cmd | Hugo 构建命令，如不需要构建则留空 |

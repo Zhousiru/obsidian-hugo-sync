@@ -118,7 +118,12 @@ func main() {
 				}
 			}
 
-			err = assetClient.Put(ent.ProcessedFilename, asset, util.GetContentType(util.GetExt(ent.ProcessedFilename)))
+			err = assetClient.Put(
+				ent.ProcessedFilename,
+				asset,
+				util.GetContentType(util.GetExt(ent.ProcessedFilename)),
+				config.X.AssetCacheControl,
+			)
 			if err != nil {
 				logger.Err("Failed to upload asset %s: %s", ent.RawFilename, err)
 				return
