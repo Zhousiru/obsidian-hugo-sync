@@ -111,10 +111,10 @@ func (mp *Mapping) Save() error {
 	}
 
 	if !util.IsExist("data") {
-		os.Mkdir("data", 0644)
+		os.Mkdir("data", 0664)
 	}
 
-	return os.WriteFile(mp.path, []byte(data), 0644)
+	return os.WriteFile(mp.path, []byte(data), 0664)
 }
 
 // VaultToMapping dumps Obsidian vault post/asset object slice to post/asset mapping.
