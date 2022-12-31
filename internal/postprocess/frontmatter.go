@@ -40,3 +40,8 @@ func assetRefModifier(frontMatter, vaultAsset, assetUrl string) string {
 		return getImageUrl(url, vaultAsset, assetUrl)
 	})
 }
+
+// DetectBypassFlag returns the existence of bypass flag in front matter.
+func DetectBypassFlag(frontMatter string) bool {
+	return strings.Contains(frontMatter, "_ohs_bypass: true")
+}
