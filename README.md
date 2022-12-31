@@ -71,8 +71,9 @@
 
 在 Obsidian 文章的 Front Matter 中：
 
-- `title` 中的 `{{auto}}` 会自动替换为 `title: <Obsidian 文章标题>`
+- `title` 中的 `{{auto}}` 会自动替换为 `<Obsidian 文章标题>`
 - `{{asset feature-image.jpg}}` 会被替换为 `https://<资源 Bucket URL>/feature-image.webp`
+- 如果包含 `_ohs_bypass: true`，文章正文（不包括 Front Matter）将会保持原样，即 Markdown 拓展语法不会被转换
 
 ## Obsidian Markdown 语法拓展
 
@@ -114,6 +115,11 @@
 - 说明
   - `<URL>` 需要以 `http(s)://` 开头
   - 链接会在新页面打开
+
+## TODO List
+
+- [ ] 自定义 Markdown 图片转换 HTML 模板
+- [ ] `srcset` 响应式图片尺寸调整
 
 ## 关于 WebP 转换
 
