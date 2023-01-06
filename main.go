@@ -212,7 +212,7 @@ func main() {
 				config.X.AssetUrl,
 			)
 
-			err = os.WriteFile(filepath.Join(config.X.Hugo.PostPath, ent.ProcessedFilename), []byte(postStr), 0644)
+			err = os.WriteFile(filepath.Join(config.X.Hugo.PostPath, ent.ProcessedFilename), []byte(postStr), 0664)
 			if err != nil {
 				logger.Err("Failed to add post %s: %s", ent.RawFilename, err)
 				return

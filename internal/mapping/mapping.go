@@ -112,7 +112,7 @@ func (mp *Mapping) Save() error {
 	}
 
 	if !util.IsExist(dataDir) {
-		os.Mkdir(dataDir, 0664)
+		os.Mkdir(dataDir, 0775)
 	}
 
 	return os.WriteFile(mp.path, []byte(data), 0664)
